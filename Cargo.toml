@@ -1,0 +1,15 @@
+[package]
+name = "contour_matching"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = { version = "0.7", features = ["multipart"] }
+tokio = { version = "1", features = ["net", "macros"] }
+rayon = { version = "1"}
+thread_local = { version = "1.1"}
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[build-dependencies]
+cmake = "0.1"

@@ -1,0 +1,8 @@
+#pragma once
+
+#cmakedefine CM_BUILD_SHARED_LIBS
+
+#cmakedefine CM_VERSION_MAJOR @CM_VERSION_MAJOR@
+#cmakedefine CM_VERSION_MINOR @CM_VERSION_MINOR@
+#cmakedefine CM_VERSION_PATCH @CM_VERSION_PATCH@
+#cmakedefine CM_VERSION "@CM_VERSION@"

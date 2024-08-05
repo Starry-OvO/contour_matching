@@ -1,0 +1,9 @@
+.*/
+*build*/
+
+target/
+
+*data*/
+test_image/
+
+cmake.h

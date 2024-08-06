@@ -15,10 +15,10 @@ namespace cm {
  * @brief Fourier Factor Encoder
  * @warning DO NOT use with multi-thread
  */
-class CM_API FourierEncoder
+class FourierEncoder
 {
 public:
-    FourierEncoder() : dft_complex_(1, consts::DFT_SIZE, CV_32FC2), thresholded_src_(){};
+    CM_API FourierEncoder() : dft_complex_(1, consts::DFT_SIZE, CV_32FC2), thresholded_src_(){};
     FourierEncoder(FourierEncoder&) = delete;
     FourierEncoder(FourierEncoder&&) = delete;
 
@@ -28,7 +28,7 @@ public:
      * @param code Fourier factors
      * @return !0 if any error
      */
-    int encode(const cv::Mat& src, cv::Mat& code);
+    CM_API int encode(const cv::Mat& src, cv::Mat& code);
 
 private:
     /**
@@ -36,7 +36,7 @@ private:
      * @param contour ...
      * @param code Rotational invariant Fourier factors
      */
-    void _computeFourierFactors(const std::vector<cv::Point>& contour, cv::Mat& code);
+    inline void _computeFourierFactors(const std::vector<cv::Point>& contour, cv::Mat& code);
 
     cv::Mat dft_complex_;     // DFT cache
     cv::Mat thresholded_src_; // threshold cache

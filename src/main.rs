@@ -10,9 +10,8 @@ async fn main() {
     let tlocal = Arc::new(ThreadLocal::new());
     let state = AppState { pool, tlocal };
 
-    let app = Router::new().route("/encode", post(encode::encode_hd)).with_state(state);
+    let routes = Router::new().route("/encode", post(encode::encode_hd)).with_state(state);
 
-    // run it with hyper on localhost:3000
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
-    axum::serve(listener, app).await.unwrap();
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3737").await.unwrap();
+    axum::serve(listener, routes).await.unwrap();
 }

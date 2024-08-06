@@ -10,7 +10,7 @@
 extern "C" {
 #endif
 
-CM_API inline void* c_decode_jpeg_from_bytes(const uint8_t* p_bytes, size_t len)
+CM_API inline void* cm_decode_jpeg_from_bytes(const uint8_t* p_bytes, size_t len)
 {
     auto dst = new cv::Mat;
     cv::Mat bytes(1, (int)len, CV_8UC1, (void*)p_bytes);
@@ -23,13 +23,13 @@ CM_API inline void* c_decode_jpeg_from_bytes(const uint8_t* p_bytes, size_t len)
     return (void*)dst;
 }
 
-CM_API inline void c_destruct_image(void* vp_image) { delete (cv::Mat*)vp_image; }
+CM_API inline void cm_destruct_image(void* vp_image) { delete (cv::Mat*)vp_image; }
 
-CM_API inline void* c_construct_fourier_encoder() { return static_cast<void*>(new cm::FourierEncoder()); }
+CM_API inline void* cm_construct_fourier_encoder() { return static_cast<void*>(new cm::FourierEncoder()); }
 
-CM_API inline void c_destruct_fourier_encoder(void* vp_encoder) { delete (cm::FourierEncoder*)vp_encoder; }
+CM_API inline void cm_destruct_fourier_encoder(void* vp_encoder) { delete (cm::FourierEncoder*)vp_encoder; }
 
-CM_API inline void c_encode(void* vp_encoder, const void* p_src, float* p_dst)
+CM_API inline void cm_encode(void* vp_encoder, const void* p_src, float* p_dst)
 {
     auto p_encoder = (cm::FourierEncoder*)vp_encoder;
 

@@ -1,8 +1,8 @@
 use std::ffi::{c_uchar, c_void};
 
 extern "C" {
-    fn c_decode_jpeg_from_bytes(p_src: *const c_uchar, len: usize) -> *mut c_void;
-    fn c_destruct_image(vp_image: *mut c_void);
+    fn cm_decode_jpeg_from_bytes(p_src: *const c_uchar, len: usize) -> *mut c_void;
+    fn cm_destruct_image(vp_image: *mut c_void);
 }
 
 pub struct Image {
@@ -15,7 +15,7 @@ pub fn decode_jpeg_from_bytes(bytes: Vec<u8>) -> Result<Image, ()> {
 
     let p_dst;
     unsafe {
-        p_dst = c_decode_jpeg_from_bytes(p_src, len);
+        p_dst = cm_decode_jpeg_from_bytes(p_src, len);
     }
 
     if p_dst.is_null() {
@@ -36,7 +36,7 @@ impl Image {
 impl Drop for Image {
     fn drop(&mut self) {
         unsafe {
-            c_destruct_image(self.ptr);
+            cm_destruct_image(self.ptr);
         }
     }
 }

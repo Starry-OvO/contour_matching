@@ -1,11 +1,13 @@
 use std::cell::RefCell;
 use std::sync::{Arc, Mutex};
 use rayon::ThreadPool;
-use thread_local::ThreadLocal;
 use crate::cffi::FourierEncoder;
+
+thread_local! {
+    pub static TLOCAL: RefCell<FourierEncoder> = RefCell::new(FourierEncoder::new());
+}
 
 #[derive(Clone)]
 pub struct AppState {
     pub pool: Arc<Mutex<ThreadPool>>,
-    pub tlocal: Arc<ThreadLocal<RefCell<FourierEncoder>>>,
 }

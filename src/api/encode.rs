@@ -1,9 +1,10 @@
-use std::cell::RefCell;
-use axum::{Json, http::StatusCode};
+use axum::{http::StatusCode, Json};
 use axum::extract::{Multipart, State};
 use serde::Serialize;
+
 use crate::cffi;
-use super::app::AppState;
+
+use super::state::{AppState, TLOCAL};
 
 #[derive(Serialize)]
 pub struct EncRes {
@@ -20,8 +21,9 @@ pub async fn encode_hd(State(state): State<AppState>, mut multipart: Multipart) 
         let data = field.bytes().await.unwrap();
         code = state.pool.lock().unwrap().install(|| {
             let image = cffi::decode_jpeg_from_bytes(data.into()).unwrap();
-            let encoder = state.tlocal.get_or(|| RefCell::new(cffi::FourierEncoder::new()));
-            encoder.borrow_mut().encode(&image)
+            TLOCAL.with_borrow_mut(|encoder| {
+                encoder.encode(&image)
+            })
         })
     }
     let res = EncRes { code };
